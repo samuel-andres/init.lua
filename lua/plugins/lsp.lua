@@ -161,6 +161,9 @@ return {
             local servers = {
                 pyright = {},
                 tsserver = {},
+                prettier = {
+                    require_pragma = true,
+                },
                 lua_ls = {
                     settings = {
                         Lua = {
@@ -177,7 +180,11 @@ return {
 
             local ensure_installed = vim.tbl_keys(servers or {})
             vim.list_extend(ensure_installed, {
-                "stylua", -- Used to format Lua code
+                "stylua",
+                "prettier",
+                "eslint-lsp",
+                "html-lsp",
+                "css-lsp",
             })
             require("mason-tool-installer").setup {
                 ensure_installed = ensure_installed,
@@ -229,6 +236,10 @@ return {
                 lua = { "stylua" },
                 python = { "isort", "black" },
                 javascript = { { "prettierd", "prettier" } },
+                css = { "prettier" },
+                html = { "prettier" },
+                typescript = { { "prettierd", "prettier" } },
+                typescriptreact = { { "prettierd", "prettier" } },
             },
         },
     },
