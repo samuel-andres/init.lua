@@ -51,7 +51,7 @@ return {
             local builtin = require "telescope.builtin"
             vim.keymap.set(
                 "n",
-                "<leader>sh",
+                "<leader>hh",
                 builtin.help_tags,
                 { desc = "[S]earch [H]elp" }
             )
@@ -108,6 +108,24 @@ return {
                 "<leader><leader>",
                 builtin.buffers,
                 { desc = "[ ] Find existing buffers" }
+            )
+            vim.keymap.set(
+                "n",
+                "<leader>sc",
+                builtin.git_status,
+                { desc = "[S]earch [G]it Status" }
+            )
+            vim.keymap.set(
+                "n",
+                "<leader>sh",
+                "<CMD>Telescope git_signs<CR>",
+                { desc = "[S]earch [H]unks" }
+            )
+            vim.keymap.set(
+                "n",
+                "<leader>sz",
+                builtin.current_buffer_fuzzy_find,
+                { desc = "[S]earch on [C]urrent buffer" }
             )
 
             -- Slightly advanced example of overriding default behavior and theme
