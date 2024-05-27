@@ -8,7 +8,7 @@ return {
                     enabled = true,
                     auto_trigger = true,
                     keymap = {
-                        accept = "<C-i>",
+                        accept = "<C-a>",
                     },
                 },
             }
