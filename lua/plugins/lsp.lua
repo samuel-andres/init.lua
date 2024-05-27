@@ -206,7 +206,23 @@ return {
             }
         end,
     },
-
+    {
+        "mfussenegger/nvim-lint",
+        config = function()
+            require("lint").linters_by_ft = {
+                python = { "flake8" },
+            }
+            vim.api.nvim_create_autocmd(
+                { "BufEnter", "TextChanged", "InsertLeave" },
+                {
+                    pattern = { "*.py" },
+                    callback = function()
+                        require("lint").try_lint()
+                    end,
+                }
+            )
+        end,
+    },
     { -- Autoformat
         "stevearc/conform.nvim",
         lazy = false,
