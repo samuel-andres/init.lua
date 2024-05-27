@@ -111,6 +111,12 @@ return {
             )
             vim.keymap.set(
                 "n",
+                "<C-e>",
+                builtin.buffers,
+                { desc = "[ ] Find existing buffers" }
+            )
+            vim.keymap.set(
+                "n",
                 "<leader>sc",
                 builtin.git_status,
                 { desc = "[S]earch [G]it Status" }

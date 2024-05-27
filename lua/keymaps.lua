@@ -1,6 +1,9 @@
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+-- Close buffer with leader x
+vim.keymap.set("n", "<leader>x", "<cmd>bd<CR>")
+
 -- Diagnostic keymaps
 vim.keymap.set(
     "n",
