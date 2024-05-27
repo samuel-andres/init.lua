@@ -68,3 +68,8 @@ vim.opt.colorcolumn = "80"
 
 -- Term GUI colors
 vim.opt.termguicolors = true
+
+-- Disable swap files (better hot reload)
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
