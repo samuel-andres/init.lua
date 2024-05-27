@@ -18,31 +18,6 @@ return {
             { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
         },
         config = function()
-            -- [[ Configure Telescope ]]
-            require("telescope").setup {
-                -- defaults = {
-                --   mappings = {
-                --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-                --   },
-                -- },
-                pickers = {
-                    buffers = {
-                        show_all_buffers = true,
-                        sort_lastused = true,
-                        mappings = {
-                            i = {
-                                ["<c-q>"] = "delete_buffer",
-                            },
-                        },
-                    },
-                },
-                extensions = {
-                    ["ui-select"] = {
-                        require("telescope.themes").get_dropdown(),
-                    },
-                },
-            }
-
             -- Enable Telescope extensions if they are installed
             pcall(require("telescope").load_extension, "fzf")
             pcall(require("telescope").load_extension, "ui-select")
@@ -112,12 +87,6 @@ return {
             )
             vim.keymap.set(
                 "n",
-                "<C-e>",
-                builtin.buffers,
-                { desc = "[ ] Find existing buffers" }
-            )
-            vim.keymap.set(
-                "n",
                 "<leader>sc",
                 builtin.git_status,
                 { desc = "[S]earch [G]it Status" }
@@ -169,6 +138,74 @@ return {
             vim.keymap.set("n", "<leader>sn", function()
                 builtin.find_files { cwd = vim.fn.stdpath "config" }
             end, { desc = "[S]earch [N]eovim files" })
+            local harpoon = require "harpoon"
+            harpoon:setup {}
+
+            -- [[ Configure Telescope ]]
+            require("telescope").setup {
+                pickers = {
+                    buffers = {
+                        show_all_buffers = true,
+                        sort_lastused = true,
+                        mappings = {
+                            i = {
+                                ["<c-q>"] = "delete_buffer",
+                            },
+                        },
+                    },
+                },
+                extensions = {
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown(),
+                    },
+                },
+            }
+            -- basic telescope configuration
+            local conf = require("telescope.config").values
+            local function toggle_telescope(harpoon_files)
+                local file_paths = {}
+                for _, item in ipairs(harpoon_files.items) do
+                    table.insert(file_paths, item.value)
+                end
+
+                local make_finder = function()
+                    local paths = {}
+                    for _, item in ipairs(harpoon_files.items) do
+                        table.insert(paths, item.value)
+                    end
+
+                    return require("telescope.finders").new_table {
+                        results = paths,
+                    }
+                end
+
+                require("telescope.pickers")
+                    .new({}, {
+                        prompt_title = "Harpoon",
+                        finder = make_finder(),
+                        previewer = conf.file_previewer {},
+                        sorter = conf.generic_sorter {},
+                        attach_mappings = function(prompt_buffer_number, map)
+                            map("i", "<C-q>", function()
+                                local state = require "telescope.actions.state"
+                                local selected_entry =
+                                    state.get_selected_entry()
+                                local current_picker =
+                                    state.get_current_picker(
+                                        prompt_buffer_number
+                                    )
+                                harpoon:list():remove_at(selected_entry.index)
+                                current_picker:refresh(make_finder())
+                            end)
+                            return true
+                        end,
+                    })
+                    :find()
+            end
+
+            vim.keymap.set("n", "<C-e>", function()
+                toggle_telescope(harpoon:list())
+            end, { desc = "Open harpoon window" })
         end,
     },
     {
