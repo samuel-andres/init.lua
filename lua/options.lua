@@ -65,3 +65,6 @@ vim.opt.wrap = false
 
 -- Color column
 vim.opt.colorcolumn = "80"
+
+-- Term GUI colors
+vim.opt.termguicolors = true
