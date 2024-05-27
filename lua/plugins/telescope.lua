@@ -47,6 +47,7 @@ return {
             pcall(require("telescope").load_extension, "fzf")
             pcall(require("telescope").load_extension, "ui-select")
             pcall(require("telescope").load_extension, "git_signs")
+            pcall(require("telescope").load_extension, "yank_history")
 
             local builtin = require "telescope.builtin"
             vim.keymap.set(
@@ -133,6 +134,18 @@ return {
                 builtin.current_buffer_fuzzy_find,
                 { desc = "[S]earch on [C]urrent buffer" }
             )
+            vim.keymap.set(
+                "n",
+                "<leader>sp",
+                builtin.registers,
+                { desc = "[S]earch [P]aste registers" }
+            )
+            vim.keymap.set(
+                "n",
+                "<leader>sy",
+                "<CMD>Telescope yank_history<CR>",
+                { desc = "[S]earch [Y]ank history" }
+            )
 
             -- Slightly advanced example of overriding default behavior and theme
             vim.keymap.set("n", "<leader>/", function()
@@ -160,5 +173,17 @@ return {
     },
     {
         "radyz/telescope-gitsigns",
+    },
+    {
+        "gbprod/yanky.nvim",
+        opts = {
+            highlight = {
+                on_put = false,
+                on_yank = false,
+            },
+            system_clipboard = {
+                sync_with_ring = true,
+            },
+        },
     },
 }

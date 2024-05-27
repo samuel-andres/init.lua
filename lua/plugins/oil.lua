@@ -10,7 +10,9 @@ return {
                 "<CMD>Oil --float<CR>",
                 { desc = "Open parent directory" }
             )
-            require("oil").setup()
+            require("oil").setup {
+                default_file_explorer = true,
+            }
         end,
     },
 }
