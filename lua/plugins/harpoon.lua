@@ -4,10 +4,16 @@ return {
     requires = { { "nvim-lua/plenary.nvim" } },
     config = function()
         local harpoon = require "harpoon"
+        ---@diagnostic disable-next-line: missing-fields
         harpoon.setup {}
+
         vim.keymap.set("n", "<leader>a", function()
             harpoon:list():add()
         end, { desc = "Add current buffer to Harpoon list" })
+        vim.keymap.set("n", "<C-e>", function()
+            harpoon.ui:toggle_quick_menu(harpoon:list())
+        end, { desc = "Toggle Harpoon list"})
+
         vim.keymap.set("n", "<leader>1", function()
             harpoon:list():select(1)
         end, { desc = "Jump to item 1 in Harpoon list" })
