@@ -185,7 +185,6 @@ return {
             local ensure_installed = vim.tbl_keys(servers or {})
             vim.list_extend(ensure_installed, {
                 "stylua",
-                "prettierd",
                 "eslint-lsp",
                 "html-lsp",
                 "css-lsp",
@@ -239,12 +238,12 @@ return {
             formatters_by_ft = {
                 lua = { "stylua" },
                 python = { "isort", "black" },
-                css = { "prettierd" },
-                html = { "prettierd" },
-                javascript = { { "prettierd" } },
-                typescript = { { "prettierd" } },
-                javascriptreact = { { "prettierd" } },
-                typescriptreact = { { "prettierd" } },
+                css = { "prettier" },
+                html = { "prettier" },
+                javascript = { { "prettier" } },
+                typescript = { { "prettier" } },
+                javascriptreact = { { "prettier" } },
+                typescriptreact = { { "prettier" } },
             },
         },
     },
