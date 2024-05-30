@@ -159,18 +159,22 @@ return {
             )
 
             local servers = {
-                pyright = {},
-                tsserver = {},
-                prettier = {
-                    require_pragma = true,
+                pylsp = {
+                    settings = {
+                        pylsp = {
+                            plugins = {
+                                flake8 = { enabled = true },
+                                mccabe = { enabled = false },
+                                pyflakes = { enabled = false },
+                                pycodestyle = { enabled = false },
+                            },
+                            configurationSources = { "flake8" },
+                        },
+                    },
                 },
                 lua_ls = {
                     settings = {
-                        Lua = {
-                            completion = {
-                                callSnippet = "Replace",
-                            },
-                        },
+                        Lua = { completion = { callSnippet = "Replace" } },
                     },
                 },
             }
@@ -181,10 +185,11 @@ return {
             local ensure_installed = vim.tbl_keys(servers or {})
             vim.list_extend(ensure_installed, {
                 "stylua",
-                "prettier",
+                "prettierd",
                 "eslint-lsp",
                 "html-lsp",
                 "css-lsp",
+                "tsserver",
             })
             require("mason-tool-installer").setup {
                 ensure_installed = ensure_installed,
@@ -206,23 +211,6 @@ return {
             }
         end,
     },
-    {
-        "mfussenegger/nvim-lint",
-        config = function()
-            require("lint").linters_by_ft = {
-                python = { "flake8" },
-            }
-            vim.api.nvim_create_autocmd(
-                { "BufEnter", "TextChanged", "InsertLeave" },
-                {
-                    pattern = { "*.py" },
-                    callback = function()
-                        require("lint").try_lint()
-                    end,
-                }
-            )
-        end,
-    },
     { -- Autoformat
         "stevearc/conform.nvim",
         lazy = false,
@@ -241,7 +229,6 @@ return {
         },
         opts = {
             notify_on_error = false,
-            -- uncomment the following to enable formatting on save
             format_on_save = function(bufnr)
                 local disable_filetypes = { c = true, cpp = true }
                 return {
@@ -252,11 +239,12 @@ return {
             formatters_by_ft = {
                 lua = { "stylua" },
                 python = { "isort", "black" },
-                javascript = { { "prettierd", "prettier" } },
-                css = { "prettier" },
-                html = { "prettier" },
-                typescript = { { "prettierd", "prettier" } },
-                typescriptreact = { { "prettierd", "prettier" } },
+                css = { "prettierd" },
+                html = { "prettierd" },
+                javascript = { { "prettierd" } },
+                typescript = { { "prettierd" } },
+                javascriptreact = { { "prettierd" } },
+                typescriptreact = { { "prettierd" } },
             },
         },
     },
