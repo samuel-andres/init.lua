@@ -7,7 +7,7 @@ return {
                 transparent = true,
                 styles = {
                     sidebars = "transparent",
-                    floats = "transparent",
+                    floats = "normal",
                 },
             }
             vim.cmd.colorscheme "tokyonight-night"

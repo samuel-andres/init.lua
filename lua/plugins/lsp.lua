@@ -189,6 +189,7 @@ return {
                 "css-lsp",
                 "tsserver",
                 "clangd",
+                "dockerls",
             })
             require("mason-tool-installer").setup {
                 ensure_installed = ensure_installed,

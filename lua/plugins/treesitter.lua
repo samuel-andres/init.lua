@@ -18,6 +18,8 @@ return {
                 "python",
                 "c",
                 "bash",
+                "dockerfile",
+                "yaml",
             },
             -- Autoinstall languages that are not installed
             auto_install = true,
