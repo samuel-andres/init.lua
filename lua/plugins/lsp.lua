@@ -185,7 +185,6 @@ return {
             local ensure_installed = vim.tbl_keys(servers or {})
             vim.list_extend(ensure_installed, {
                 "stylua",
-                "eslint-lsp",
                 "html-lsp",
                 "css-lsp",
                 "tsserver",
@@ -242,10 +241,10 @@ return {
                 python = { "isort", "black" },
                 css = { "prettier" },
                 html = { "prettier" },
-                javascript = { { "prettier" } },
-                typescript = { { "prettier" } },
-                javascriptreact = { { "prettier" } },
-                typescriptreact = { { "prettier" } },
+                javascript = { "prettier" },
+                typescript = { "prettier" },
+                javascriptreact = { "prettier" },
+                typescriptreact = { "prettier" },
             },
         },
     },
@@ -326,7 +325,13 @@ return {
         "mfussenegger/nvim-lint",
         config = function()
             local lint = require "lint"
-            lint.linters_by_ft = { python = { "flake8" } }
+            lint.linters_by_ft = {
+                python = { "flake8" },
+                javascript = { "eslint" },
+                typescript = { "eslint" },
+                javascriptreact = { "eslint" },
+                typescriptreact = { "eslint" },
+            }
             vim.api.nvim_create_autocmd(
                 { "BufEnter", "TextChanged", "InsertLeave" },
                 {
