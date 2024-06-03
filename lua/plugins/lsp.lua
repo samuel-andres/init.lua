@@ -12,7 +12,12 @@ return {
 
             -- Lua LSP for Neovim config, runtime and plugins
             -- used for completion, annotations and signatures of Neovim apis
-            { "folke/lazydev.nvim", opts = {} },
+            {
+                "folke/lazydev.nvim",
+                ft = "lua",
+                opts = { library = { "luvit-meta/library" } },
+            },
+            { "Bilal2453/luvit-meta", lazy = true },
         },
         config = function()
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -314,6 +319,7 @@ return {
                     end, { "i", "s" }),
                 },
                 sources = {
+                    { name = "lazydev", group_index = 0 },
                     { name = "nvim_lsp" },
                     { name = "luasnip" },
                     { name = "path" },
