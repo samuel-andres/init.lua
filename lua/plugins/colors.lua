@@ -1,17 +1,14 @@
 return {
     {
-        "folke/tokyonight.nvim",
+        "ellisonleao/gruvbox.nvim",
         priority = 1000,
+        config = true,
+        opts = {},
         init = function()
-            require("tokyonight").setup {
-                transparent = true,
-                styles = {
-                    sidebars = "transparent",
-                    floats = "normal",
-                },
+            require("gruvbox").setup {
+                transparent_mode = false,
             }
-            vim.cmd.colorscheme "tokyonight-night"
-            vim.cmd.hi "Comment gui=none"
+            vim.cmd "colorscheme gruvbox"
         end,
     },
 }

@@ -22,6 +22,9 @@ return {
             statusline.section_location = function()
                 return "%2l:%-2v"
             end
+
+            -- Autopairs
+            require("mini.pairs").setup()
         end,
     },
 }
