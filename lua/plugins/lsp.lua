@@ -160,13 +160,17 @@ return {
 
             local servers = {
                 pyright = {
-                    settings = {
-                        python = {
-                            analysis = {
-                                diagnosticMode = "off",
-                                typeCheckingMode = "off",
+                    capabilities = {
+                        -- Disable hints for unused variables
+                        -- e.g.: `args`, `self` is not accessed
+                        textDocument = {
+                            publishDiagnostics = {
+                                tagSupport = { valueSet = { 2 } },
                             },
                         },
+                    },
+                    settings = {
+                        python = { analysis = { typeCheckingMode = "off" } },
                     },
                 },
                 lua_ls = {
@@ -176,7 +180,6 @@ return {
                 },
             }
 
-            -- Ensure the servers and tools above are installed
             require("mason").setup()
 
             local ensure_installed = vim.tbl_keys(servers or {})
@@ -320,23 +323,29 @@ return {
         end,
     },
     {
+        "mfussenegger/nvim-lint",
+        config = function()
+            local lint = require "lint"
+            lint.linters_by_ft = { python = { "flake8" } }
+            vim.api.nvim_create_autocmd(
+                { "BufEnter", "TextChanged", "InsertLeave" },
+                {
+                    callback = function()
+                        -- Ignore errors when the executable is not found
+                        -- Passing lint as the first argument means that it
+                        -- will run the linter according to the `linters_by_ft`
+                        -- configuration.
+                        lint.try_lint(nil, { ignore_errors = true })
+                    end,
+                }
+            )
+        end,
+    },
+    {
         "nvim-treesitter/nvim-treesitter-context",
         opts = {},
         config = function()
-            require("treesitter-context").setup {
-                enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-                max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-                min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-                line_numbers = true,
-                multiline_threshold = 1, -- Maximum number of lines to show for a single context
-                trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-                mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
-                -- Separator between context and content. Should be a single character string, like '-'.
-                -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-                separator = nil,
-                zindex = 20, -- The Z-index of the context window
-                on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-            }
+            require("treesitter-context").setup { multiline_threshold = 1 }
         end,
     },
 }
