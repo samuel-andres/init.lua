@@ -159,14 +159,12 @@ return {
             )
 
             local servers = {
-                pylsp = {
+                pyright = {
                     settings = {
-                        pylsp = {
-                            plugins = {
-                                flake8 = { enabled = true },
-                                mccabe = { enabled = false },
-                                pyflakes = { enabled = false },
-                                pycodestyle = { enabled = false },
+                        python = {
+                            analysis = {
+                                diagnosticMode = "off",
+                                typeCheckingMode = "off",
                             },
                         },
                     },
