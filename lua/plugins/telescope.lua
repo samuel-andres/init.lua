@@ -137,7 +137,6 @@ return {
                 builtin.find_files { cwd = vim.fn.stdpath "config" }
             end, { desc = "[S]earch [N]eovim files" })
 
-
             -- [[ Configure Telescope ]]
             require("telescope").setup {
                 pickers = {

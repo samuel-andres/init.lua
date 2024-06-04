@@ -73,3 +73,6 @@ vim.opt.termguicolors = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
+
+-- Folds
+vim.opt.foldlevel = 9
