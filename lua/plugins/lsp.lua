@@ -18,6 +18,12 @@ return {
                 opts = { library = { "luvit-meta/library" } },
             },
             { "Bilal2453/luvit-meta", lazy = true },
+
+            -- Folds
+            {
+                "kevinhwang91/nvim-ufo",
+                dependencies = { "kevinhwang91/promise-async" },
+            },
         },
         config = function()
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -157,6 +163,12 @@ return {
             })
 
             local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+            -- Add folding capabilities
+            capabilities.textDocument.foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+            }
             capabilities = vim.tbl_deep_extend(
                 "force",
                 capabilities,
@@ -214,6 +226,7 @@ return {
                     end,
                 },
             }
+            require("ufo").setup()
         end,
     },
     { -- Autoformat
