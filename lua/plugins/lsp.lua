@@ -205,7 +205,6 @@ return {
                 "html-lsp",
                 "css-lsp",
                 "tsserver",
-                "clangd",
                 "dockerls",
             })
             require("mason-tool-installer").setup {
