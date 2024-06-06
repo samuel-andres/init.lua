@@ -29,10 +29,3 @@ vim.keymap.set(
     vim.diagnostic.setloclist,
     { desc = "Open diagnostic [Q]uickfix list" }
 )
-
-vim.keymap.set(
-    "n",
-    "<C-w>h",
-    "<CMD>split<CR>",
-    { desc = "Split window [H]orizontally" }
-)
