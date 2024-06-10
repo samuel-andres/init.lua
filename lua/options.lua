@@ -79,3 +79,6 @@ vim.opt.foldlevel = 9
 
 -- Truecolors
 vim.opt.termguicolors = true
+
+-- Always block
+vim.opt.guicursor = ""
