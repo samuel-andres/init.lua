@@ -1,25 +1,17 @@
 return {
-    { -- LSP Configuration & Plugins
+    {
         "neovim/nvim-lspconfig",
         dependencies = {
-            -- Automatically install LSPs and related tools to stdpath for Neovim
             { "williamboman/mason.nvim", config = true },
             "williamboman/mason-lspconfig.nvim",
             "WhoIsSethDaniel/mason-tool-installer.nvim",
-
-            -- Useful status updates for LSP.
             { "j-hui/fidget.nvim", opts = {} },
-
-            -- Lua LSP for Neovim config, runtime and plugins
-            -- used for completion, annotations and signatures of Neovim apis
             {
                 "folke/lazydev.nvim",
                 ft = "lua",
                 opts = { library = { "luvit-meta/library" } },
             },
             { "Bilal2453/luvit-meta", lazy = true },
-
-            -- Folds
             {
                 "kevinhwang91/nvim-ufo",
                 dependencies = { "kevinhwang91/promise-async" },
@@ -229,7 +221,7 @@ return {
             require("ufo").setup()
         end,
     },
-    { -- Autoformat
+    {
         "stevearc/conform.nvim",
         lazy = false,
         keys = {
@@ -266,8 +258,7 @@ return {
             },
         },
     },
-
-    { -- Autocompletion
+    {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
         dependencies = {
@@ -303,21 +294,11 @@ return {
                 completion = { completeopt = "menu,menuone,noinsert" },
 
                 mapping = cmp.mapping.preset.insert {
-                    -- Select the [n]ext item
                     ["<C-n>"] = cmp.mapping.select_next_item(),
-                    -- Select the [p]revious item
                     ["<C-p>"] = cmp.mapping.select_prev_item(),
-
-                    -- Scroll the documentation window [b]ack / [f]orward
                     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-f>"] = cmp.mapping.scroll_docs(4),
-
-                    -- Accept ([y]es) the completion.
-                    --  This will auto-import if your LSP supports it.
-                    --  This will expand snippets if the LSP sent a snippet.
                     ["<C-y>"] = cmp.mapping.confirm { select = true },
-
-                    -- Manually trigger a completion from nvim-cmp.
                     ["<C-Space>"] = cmp.mapping.complete {},
 
                     ["<C-l>"] = cmp.mapping(function()
@@ -325,6 +306,7 @@ return {
                             luasnip.expand_or_jump()
                         end
                     end, { "i", "s" }),
+
                     ["<C-h>"] = cmp.mapping(function()
                         if luasnip.locally_jumpable(-1) then
                             luasnip.jump(-1)
@@ -355,10 +337,6 @@ return {
                 { "BufEnter", "TextChanged", "InsertLeave" },
                 {
                     callback = function()
-                        -- Ignore errors when the executable is not found
-                        -- Passing lint as the first argument means that it
-                        -- will run the linter according to the `linters_by_ft`
-                        -- configuration.
                         lint.try_lint(nil, { ignore_errors = true })
                     end,
                 }

@@ -1,5 +1,5 @@
 return {
-    { -- Fuzzy Finder (files, lsp, etc)
+    {
         "nvim-telescope/telescope.nvim",
         event = "VimEnter",
         branch = "0.1.x",
@@ -12,17 +12,14 @@ return {
                     return vim.fn.executable "make" == 1
                 end,
             },
+            { "radyz/telescope-gitsigns" },
             { "nvim-telescope/telescope-ui-select.nvim" },
-
-            -- Useful for getting pretty icons, requires a Nerd Font.
             { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
         },
         config = function()
-            -- Enable Telescope extensions if they are installed
             pcall(require("telescope").load_extension, "fzf")
             pcall(require("telescope").load_extension, "ui-select")
             pcall(require("telescope").load_extension, "git_signs")
-            pcall(require("telescope").load_extension, "yank_history")
 
             local builtin = require "telescope.builtin"
             vim.keymap.set(
@@ -109,68 +106,8 @@ return {
                 builtin.registers,
                 { desc = "[S]earch [P]aste registers" }
             )
-            vim.keymap.set(
-                "n",
-                "<leader>sy",
-                "<CMD>Telescope yank_history<CR>",
-                { desc = "[S]earch [Y]ank history" }
-            )
 
-            vim.keymap.set("n", "<leader>/", function()
-                builtin.current_buffer_fuzzy_find(
-                    require("telescope.themes").get_dropdown {
-                        winblend = 10,
-                        previewer = false,
-                    }
-                )
-            end, { desc = "[/] Fuzzily search in current buffer" })
-
-            vim.keymap.set("n", "<leader>s/", function()
-                builtin.live_grep {
-                    grep_open_files = true,
-                    prompt_title = "Live Grep in Open Files",
-                }
-            end, { desc = "[S]earch [/] in Open Files" })
-
-            -- Shortcut for searching your Neovim configuration files
-            vim.keymap.set("n", "<leader>sn", function()
-                builtin.find_files { cwd = vim.fn.stdpath "config" }
-            end, { desc = "[S]earch [N]eovim files" })
-
-            -- [[ Configure Telescope ]]
-            require("telescope").setup {
-                pickers = {
-                    buffers = {
-                        show_all_buffers = true,
-                        sort_lastused = true,
-                        mappings = {
-                            i = {
-                                ["<c-q>"] = "delete_buffer",
-                            },
-                        },
-                    },
-                },
-                extensions = {
-                    ["ui-select"] = {
-                        require("telescope.themes").get_dropdown(),
-                    },
-                },
-            }
+            require("telescope").setup {}
         end,
-    },
-    {
-        "radyz/telescope-gitsigns",
-    },
-    {
-        "gbprod/yanky.nvim",
-        opts = {
-            highlight = {
-                on_put = false,
-                on_yank = false,
-            },
-            system_clipboard = {
-                sync_with_ring = true,
-            },
-        },
     },
 }
