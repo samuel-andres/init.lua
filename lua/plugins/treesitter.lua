@@ -30,4 +30,11 @@ return {
             require("nvim-treesitter.configs").setup(opts)
         end,
     },
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        opts = {},
+        config = function()
+            require("treesitter-context").setup { multiline_threshold = 1 }
+        end,
+    },
 }

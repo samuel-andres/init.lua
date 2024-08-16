@@ -5,6 +5,7 @@ return {
             require("mini.ai").setup { n_lines = 500 }
             require("mini.surround").setup()
             require("mini.pairs").setup()
+            require("mini.cursorword").setup()
 
             local statusline = require "mini.statusline"
             statusline.setup { use_icons = vim.g.have_nerd_font }
@@ -13,7 +14,6 @@ return {
                 return "%2l:%-2v"
             end
 
-            -- WhichKey
             local miniclue = require "mini.clue"
             miniclue.setup {
                 triggers = {
@@ -55,6 +55,32 @@ return {
                     miniclue.gen_clues.registers(),
                     miniclue.gen_clues.windows(),
                     miniclue.gen_clues.z(),
+                },
+            }
+
+            local hipatterns = require "mini.hipatterns"
+            hipatterns.setup {
+                highlighters = {
+                    -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+                    fixme = {
+                        pattern = "%f[%w]()FIXME()%f[%W]",
+                        group = "MiniHipatternsFixme",
+                    },
+                    hack = {
+                        pattern = "%f[%w]()HACK()%f[%W]",
+                        group = "MiniHipatternsHack",
+                    },
+                    todo = {
+                        pattern = "%f[%w]()TODO()%f[%W]",
+                        group = "MiniHipatternsTodo",
+                    },
+                    note = {
+                        pattern = "%f[%w]()NOTE()%f[%W]",
+                        group = "MiniHipatternsNote",
+                    },
+
+                    -- Highlight hex color strings (`#rrggbb`) using that color
+                    hex_color = hipatterns.gen_highlighter.hex_color(),
                 },
             }
         end,
