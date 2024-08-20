@@ -29,3 +29,29 @@ vim.keymap.set(
     vim.diagnostic.setloclist,
     { desc = "Open diagnostic [Q]uickfix list" }
 )
+
+-- Resizing actions
+vim.keymap.set(
+    "n",
+    "<C-w><S-j>",
+    ":resize -5<CR>",
+    { desc = "Resize window down", silent = true }
+)
+vim.keymap.set(
+    "n",
+    "<C-w><S-k>",
+    ":resize +5<CR>",
+    { desc = "Resize window up", silent = true }
+)
+vim.keymap.set(
+    "n",
+    "<C-w><S-l>",
+    ":vertical resize -5<CR>",
+    { desc = "Resize window right", silent = true }
+)
+vim.keymap.set(
+    "n",
+    "<C-w><S-h>",
+    ":vertical resize +5<CR>",
+    { desc = "Resize window left", silent = true }
+)
