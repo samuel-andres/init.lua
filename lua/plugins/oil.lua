@@ -9,9 +9,9 @@ return {
         default_file_explorer = true,
         use_default_keymaps = false,
         keymaps = {
-          ['g?'] = 'actions.show_help',
+          ['?'] = 'actions.show_help',
           ['<CR>'] = 'actions.select',
-          ['<C-p>'] = 'actions.preview',
+          ['<Tab>'] = 'actions.preview',
           ['<C-c>'] = 'actions.close',
           ['-'] = 'actions.parent',
           ['_'] = 'actions.open_cwd',
