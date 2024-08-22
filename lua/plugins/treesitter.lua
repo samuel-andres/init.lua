@@ -1,6 +1,7 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    event = 'VeryLazy',
     build = ':TSUpdate',
     opts = {
       ensure_installed = {
@@ -32,6 +33,7 @@ return {
   },
   {
     'nvim-treesitter/nvim-treesitter-context',
+    event = 'VeryLazy',
     opts = {},
     config = function()
       require('treesitter-context').setup { multiline_threshold = 1 }

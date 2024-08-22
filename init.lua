@@ -3,6 +3,7 @@ require 'keymaps'
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 
+---@diagnostic disable-next-line: undefined-field
 if not vim.uv.fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
   local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
@@ -13,4 +14,20 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup { spec = 'plugins' }
+require('lazy').setup {
+  spec = 'plugins',
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        'gzip',
+        'matchit',
+        'matchparen',
+        'netrwPlugin',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
+      },
+    },
+  },
+}
