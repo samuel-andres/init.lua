@@ -54,7 +54,7 @@ return {
       vim.keymap.set('n', '<leader>sr', '<cmd>Pick resume<cr>', { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', '<cmd>Pick oldfiles<cr>', { desc = '[S]earch Recent Files' })
       vim.keymap.set('n', '<leader><leader>', '<cmd>Pick buffers<cr>', { desc = '[ ] Find existing buffers' })
-      vim.keymap.set('n', '<leader>sc', '<cmd>Pick git_hunks<cr>', { desc = '[S]earch [C]hanges' })
+      vim.keymap.set('n', '<leader>sc', '<cmd>Pick git_files scope="modified"<cr>', { desc = '[S]earch [C]hanges' })
       vim.keymap.set('n', '<leader>sh', "<cmd>Pick git_hunks path='%' n_context=0<cr>", { desc = '[S]earch [H]unks' })
       vim.keymap.set('n', '<leader>sz', '<cmd>Pick buf_lines scrope="current"<cr>', { desc = '[S]earch on [C]Current buffer' })
       vim.keymap.set('n', '<leader>sp', '<cmd>Pick registers<cr>', { desc = '[S]earch [P]aste registers' })
