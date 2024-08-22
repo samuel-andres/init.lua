@@ -11,9 +11,7 @@ return {
       typescriptreact = { 'eslint' },
     }
     vim.api.nvim_create_autocmd({ 'BufEnter', 'TextChanged', 'InsertLeave' }, {
-      callback = function()
-        lint.try_lint(nil, { ignore_errors = true })
-      end,
+      callback = function() lint.try_lint(nil, { ignore_errors = true }) end,
     })
   end,
 }

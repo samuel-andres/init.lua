@@ -10,9 +10,7 @@ return {
     local cmp = require 'cmp'
     cmp.setup {
       snippet = {
-        expand = function(args)
-          vim.snippet.expand(args.body)
-        end,
+        expand = function(args) vim.snippet.expand(args.body) end,
       },
       completion = { completeopt = 'menu,menuone,noinsert' },
       mapping = cmp.mapping.preset.insert {

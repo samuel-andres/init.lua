@@ -35,8 +35,6 @@ return {
     'nvim-treesitter/nvim-treesitter-context',
     event = 'VeryLazy',
     opts = {},
-    config = function()
-      require('treesitter-context').setup { multiline_threshold = 1 }
-    end,
+    config = function() require('treesitter-context').setup { multiline_threshold = 1 } end,
   },
 }

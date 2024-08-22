@@ -13,9 +13,7 @@ return {
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(event)
-          local map = function(keys, func, desc)
-            vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
-          end
+          local map = function(keys, func, desc) vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc }) end
 
           map('gr', '<cmd>Pick lsp scope="references"<cr>', '[G]oto [R]eferences')
           map('gI', '<cmd>Pick lsp scope="implementation"<cr>', '[G]oto [I]mplementation')
