@@ -13,7 +13,7 @@ vim.opt.relativenumber = true
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
-vim.opt.clipboard = 'unnamedplus'
+vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 
 -- Save undo history
 vim.opt.undofile = true
