@@ -7,7 +7,6 @@ return {
       require('mini.pairs').setup()
       require('mini.cursorword').setup()
       require('mini.extra').setup()
-
       require('mini.ai').setup { n_lines = 500 }
       require('mini.notify').setup { window = { max_width_share = 0.764 } }
       require('mini.basics').setup { options = { basic = false }, mappings = { basic = false, option_toggle_prefix = '' } }
