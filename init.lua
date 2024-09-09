@@ -25,7 +25,6 @@ vim.o.foldcolumn = '0'
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
-vim.opt.termguicolors = true
 vim.opt.guicursor = ''
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 
