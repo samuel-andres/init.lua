@@ -6,12 +6,12 @@ return {
     opts = {
       -- stylua: ignore
       ensure_installed = {
-        'vim', 'vimdoc', 'lua', 'luadoc', 'diff', 'html', 'markdown', 'css', 'yaml',
         'javascript', 'typescript', 'tsx', 'python', 'c', 'bash', 'dockerfile',
+        'vim', 'vimdoc', 'lua', 'luadoc', 'diff', 'html', 'markdown', 'css', 'yaml',
       },
       auto_install = true,
-      highlight = { enable = true },
       indent = { enable = true },
+      highlight = { enable = true },
     },
     config = function(_, opts) require('nvim-treesitter.configs').setup(opts) end,
   },
