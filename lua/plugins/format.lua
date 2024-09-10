@@ -8,7 +8,6 @@ return {
         '<leader>f',
         function() require('conform').format { async = true, lsp_format = 'fallback' } end,
         mode = '',
-        desc = '[F]ormat buffer',
       },
     },
     config = function()
@@ -18,11 +17,11 @@ return {
         else
           vim.g.disable_autoformat = true
         end
-      end, { desc = 'Disable autoformat-on-save', bang = true })
+      end, {})
       vim.api.nvim_create_user_command('FormatEnable', function()
         vim.b.disable_autoformat = false
         vim.g.disable_autoformat = false
-      end, { desc = 'Re-enable autoformat-on-save' })
+      end, {})
       require('conform').setup {
         notify_on_error = false,
         format_on_save = function(bufnr)

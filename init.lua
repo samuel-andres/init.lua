@@ -21,24 +21,42 @@ vim.opt.termguicolors = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
-vim.o.foldcolumn = '0'
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
+vim.opt.foldcolumn = '0'
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
 vim.opt.guicursor = ''
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 
+-- [[ Autocommands ]]
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function() vim.highlight.on_yank() end,
+  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+})
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(e)
+    local function map(l, r) vim.keymap.set('n', l, r, { buffer = e.buf }) end
+    map('gd', vim.lsp.buf.definition)
+    map('<leader>rn', vim.lsp.buf.rename)
+    map('<leader>ca', vim.lsp.buf.code_action)
+    map('gr', '<cmd>Pick lsp scope="references"<cr>')
+    map('gI', '<cmd>Pick lsp scope="implementation"<cr>')
+    map('<leader>D', '<cmd>Pick lsp scope="type_definition"<cr>')
+    map('<leader>ds', '<cmd>Pick lsp scope="document_symbol"<cr>')
+    map('<leader>ws', '<cmd>Pick lsp scope="workspace_symbol"<cr>')
+  end,
+})
+
 -- [[ Keymaps ]]
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-vim.keymap.set('n', '<leader>x', '<cmd>bd<CR>')
-vim.keymap.set('n', '[d', function() vim.diagnostic.jump { count = -1, float = true } end, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', 'd]', function() vim.diagnostic.jump { count = 1, float = true } end, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('n', '<C-w><S-j>', ':resize -5<CR>', { desc = 'Resize window down', silent = true })
-vim.keymap.set('n', '<C-w><S-k>', ':resize +5<CR>', { desc = 'Resize window up', silent = true })
-vim.keymap.set('n', '<C-w><S-l>', ':vertical resize -5<CR>', { desc = 'Resize window right', silent = true })
-vim.keymap.set('n', '<C-w><S-h>', ':vertical resize +5<CR>', { desc = 'Resize window left', silent = true })
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump { count = -1, float = true } end)
+vim.keymap.set('n', 'd]', function() vim.diagnostic.jump { count = 1, float = true } end)
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<C-w><S-j>', ':resize -5<CR>')
+vim.keymap.set('n', '<C-w><S-k>', ':resize +5<CR>')
+vim.keymap.set('n', '<C-w><S-l>', ':vertical resize -5<CR>')
+vim.keymap.set('n', '<C-w><S-h>', ':vertical resize +5<CR>')
 
 -- [[ Plugins ]]
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
