@@ -30,10 +30,10 @@ return {
     vim.keymap.set('n', '<leader>sk', ':Pick keymaps<cr>')
     vim.keymap.set('n', '<leader>sb', ':Pick buffers<cr>')
     vim.keymap.set('n', '<leader>s.', ':Pick oldfiles<cr>')
+    vim.keymap.set('n', '<leader>sc', ':Pick git_hunks<cr>')
     vim.keymap.set('n', '<leader>sp', ':Pick registers<cr>')
     vim.keymap.set('n', '<leader>sd', ':Pick diagnostic<cr>')
     vim.keymap.set('n', '<leader>sg', ':Pick grep_live tool="rg"<cr>')
-    vim.keymap.set('n', '<leader>sc', ':Pick git_files scope="modified"<cr>')
     vim.keymap.set('n', '<leader>sz', ':Pick buf_lines scope="current"<cr>')
     vim.keymap.set('n', '<leader>sh', ":Pick git_hunks path='%' n_context=0<cr>")
 
